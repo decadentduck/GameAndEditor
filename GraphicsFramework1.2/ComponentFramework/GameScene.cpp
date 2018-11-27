@@ -4,7 +4,7 @@
 #include "MMath.h"
 #include "Window.h"
 #include "Shader.h"
-#include "Scene1.h"
+#include "GameScene.h"
 #include "SceneEnvironment.h"
 #include "Trackball.h"
 
@@ -14,16 +14,16 @@ using namespace GAME;
 using namespace MATH;
 
 
-Scene1::Scene1(Window& windowRef):Scene(windowRef) {
+GameScene::GameScene(Window& windowRef) :Scene(windowRef) {
 
 }
 
 
-bool Scene1::OnCreate() {
-	
+bool GameScene::OnCreate() {
+
 	camera = nullptr;
-	
-	
+
+
 	/// Load Assets: as needed 
 	if (addModel("Tree1.obj") == false) {
 		return false;
@@ -37,7 +37,7 @@ bool Scene1::OnCreate() {
 }
 
 
-bool GAME::Scene1::addModel(const char* filename)
+bool GAME::GameScene::addModel(const char* filename)
 {
 	models.push_back(new Model(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f)));
 	models[models.size() - 1]->OnCreate();
@@ -48,51 +48,53 @@ bool GAME::Scene1::addModel(const char* filename)
 	return true;
 }
 
-void Scene1::OnResize(int w_, int h_){
-	windowPtr->setWindowSize(w_,h_);
-	glViewport(0,0,windowPtr->getWidth(),windowPtr->getHeight());
+void GameScene::OnResize(int w_, int h_) {
+	windowPtr->setWindowSize(w_, h_);
+	glViewport(0, 0, windowPtr->getWidth(), windowPtr->getHeight());
 	if (camera) delete camera;
 	camera = new Camera(w_, h_, Vec3(0.0f, 0.0f, 10.0f));
 	Camera::currentCamera = camera;
 	Trackball::getInstance()->setWindowDimensions(windowPtr->getWidth(), windowPtr->getHeight());
 }
 
-void Scene1::Update(const float deltaTime) {
+void GameScene::Update(const float deltaTime) {
 	for (Model* model : models) {
 		model->Update(deltaTime);
 	}
 }
 
-void Scene1::Render() const{
+void GameScene::Render() const {
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);	
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glEnable(GL_CULL_FACE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/// Draw your scene here
 	for (Model* model : models) {
 		model->Render();
 	}
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
-	
+
 }
 
-void Scene1::HandleEvents(const SDL_Event& SDLEvent){
+void GameScene::HandleEvents(const SDL_Event& SDLEvent) {
 	if (SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN) {
 		Trackball::getInstance()->onLeftMouseDown(SDLEvent.button.x, SDLEvent.button.y);
-	}else if(SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONUP){
+	}
+	else if (SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONUP) {
 		Trackball::getInstance()->onLeftMouseUp(SDLEvent.button.x, SDLEvent.button.y);
-	}else if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION && 
+	}
+	else if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION &&
 		SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 		Trackball::getInstance()->onMouseMove(SDLEvent.button.x, SDLEvent.button.y);
 	}
-		
+
 }
 
-Scene1::~Scene1() {
+GameScene::~GameScene() {
 	OnDestroy();
 }
 
-void Scene1::OnDestroy() {
+void GameScene::OnDestroy() {
 	/// Cleanup Assets
 	if (camera) delete camera;
 	for (Model* model : models) {

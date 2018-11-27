@@ -3,8 +3,8 @@
 #include "Debug.h"
 #include "Timer.h"
 #include "Scene0.h"
-#include "Scene1.h"
-#include "Scene2.h"
+#include "GameScene.h"
+#include "EditorScene.h"
 #include <cassert>
 
 using namespace GAME;
@@ -71,7 +71,7 @@ void GameSceneManager::HandleEvents(){
 				switch (SDLEvent.key.keysym.sym) {
 					case SDLK_F1:
 						if (currentScene) delete currentScene;
-						currentScene = new Scene1(windowInstance);
+						currentScene = new GameScene(windowInstance);
 						currentScene->OnCreate();
 						break;
 					case SDLK_F2:
@@ -128,7 +128,7 @@ bool GameSceneManager::Initialize(){
 	}
 
 	
-	currentScene = new Scene1(windowInstance);
+	currentScene = new GameScene(windowInstance);
 
 	if(currentScene == nullptr){
 		Debug::Log(EMessageType::FATAL_ERROR, "Failed to initialize the Scene",__FILE__, __LINE__);

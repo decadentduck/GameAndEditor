@@ -1,28 +1,30 @@
-#ifndef Scene1_H
-#define Scene1_H
+#ifndef EDITORSCENE_H
+#define EDITORSCENE_H
 
 #include "Scene.h"
 #include "Model.h"
 #include "Camera.h"
 
-namespace GAME {
+namespace GAME 
+{
 	class Window; /// Forward declaration
 
-	class Scene1 : public Scene  {
+	class EditorScene : public Scene 
+	{
 	protected:
 
 		bool addModel(const char* filename);
 		
 	public:
-		explicit Scene1(Window& windowRef);
-		virtual ~Scene1();
+		explicit EditorScene(Window& windowRef);
+		virtual ~EditorScene();
 
 
 		/// Delete these possible default constructors and operators  
-		Scene1(const Scene1&) = delete;
-		Scene1(Scene1 &&) = delete;
-		Scene1& operator=(const Scene1 &) = delete;
-		Scene1& operator=(Scene1 &&) = delete;
+		EditorScene(const EditorScene&) = delete;
+		EditorScene(EditorScene &&) = delete;
+		EditorScene& operator=(const EditorScene &) = delete;
+		EditorScene& operator=(EditorScene &&) = delete;
 
 		virtual bool OnCreate() ;
 		virtual void OnDestroy();

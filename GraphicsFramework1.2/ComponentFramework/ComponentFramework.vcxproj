@@ -71,6 +71,8 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="EditorScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -78,7 +80,6 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneEnvironment.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -89,7 +90,9 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="EditorScene.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="GameSceneManager.h" />
@@ -98,7 +101,6 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Scene1.h" />
     <ClInclude Include="SceneEnvironment.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sphere.h" />
