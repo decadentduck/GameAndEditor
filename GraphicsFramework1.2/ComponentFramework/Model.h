@@ -7,41 +7,42 @@
 
 namespace GAME {
 
-using namespace MATH;
+	using namespace MATH;
 
-class Model : public Entity {
+	class Model : public Entity {
+	protected:
+		float rotation;
+		Vec3 scale;
 
-protected:
+		class Shader *shader;
 
-	class Shader *shader;
+		Matrix4 modelMatrix;
+		std::vector<Mesh*> meshes;
 
-	Matrix4 modelMatrix;
-	std::vector<Mesh*> meshes;
+	public:
+		Model(const Vec3 _pos, const Vec3 _orientation);
+		Model(const Vec3 _pos, const Vec3 _orientation, const float rotation_, const Vec3 scale_);
+		Model(const Model&) = delete;
+		Model(Model&&) = delete;
+		Model& operator = (const Model&) = delete;
+		Model& operator = (Model&&) = delete;
 
-public:
+		virtual ~Model();
 
-	Model(const Vec3 _pos, const Vec3 _orientation);
-	Model(const Model&) = delete;
-	Model(Model&&) = delete;
-	Model& operator = (const Model&) = delete;
-	Model& operator = (Model&&) = delete;
+		void setPos(const Vec3& pos_) override;
+		void setOrientation(const Vec3& orienration_) override;
 
-	virtual ~Model();
+		virtual bool OnCreate();
+		virtual void OnDestroy();
+		virtual void Render() const;
+		virtual void Update(const float deltaTime);
 
-	void setPos(const Vec3& pos_) override;
-	void setOrientation(const Vec3& orienration_) override;
+		virtual bool LoadMesh(const char* filename);
 
-	virtual bool OnCreate();
-	virtual void OnDestroy();
-	virtual void Render() const;
-	virtual void Update(const float deltaTime);
+	protected:
 
-	virtual bool LoadMesh(const char* filename);
-
-protected:
-
-	void updateModelMatrix();
-};
+		void updateModelMatrix();
+	};
 } /// end of namespace
 
 #endif

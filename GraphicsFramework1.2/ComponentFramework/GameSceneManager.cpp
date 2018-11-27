@@ -5,6 +5,7 @@
 #include "Scene0.h"
 #include "GameScene.h"
 #include "EditorScene.h"
+#include "OpeningScene.h"
 #include <cassert>
 
 using namespace GAME;
@@ -52,11 +53,14 @@ void GameSceneManager::Run(){
 	}
 }
 
-void GameSceneManager::HandleEvents(){
+void GameSceneManager::HandleEvents()
+{
 	SDL_Event SDLEvent;
 	
-	while (SDL_PollEvent(&SDLEvent)) {
-		switch (SDLEvent.type) {
+	while (SDL_PollEvent(&SDLEvent)) 
+	{
+		switch (SDLEvent.type) 
+		{
 			case SDL_EventType::SDL_QUIT:
 				isRunning = false;
 				return;
@@ -68,18 +72,23 @@ void GameSceneManager::HandleEvents(){
 				currentScene->HandleEvents(SDLEvent);
 				break;
 			case SDL_EventType::SDL_KEYDOWN:
-				switch (SDLEvent.key.keysym.sym) {
+				switch (SDLEvent.key.keysym.sym) 
+				{
 					case SDLK_F1:
+						if (currentScene) delete currentScene;
+						currentScene = new OpeningScene(windowInstance);
+						currentScene->OnCreate();
+						break;
+					case SDLK_F2:
 						if (currentScene) delete currentScene;
 						currentScene = new GameScene(windowInstance);
 						currentScene->OnCreate();
 						break;
-					case SDLK_F2:
-						
-						
-						
+					case SDLK_F3:
+						if (currentScene) delete currentScene;
+						currentScene = new EditorScene(windowInstance);
+						currentScene->OnCreate();
 						break;
-
 					case SDLK_ESCAPE:
 						windowInstance.ToggleFullScreen();
 						break;
@@ -91,10 +100,10 @@ void GameSceneManager::HandleEvents(){
 						currentScene->HandleEvents(SDLEvent);
 						break;
 				}
-				
 				break;
 			case SDL_WINDOWEVENT:
-				if(SDLEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED){
+				if(SDLEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+				{
 					currentScene->OnResize(SDLEvent.window.data1,SDLEvent.window.data2 );
 				}
 				break;
@@ -105,19 +114,22 @@ void GameSceneManager::HandleEvents(){
 	}
 }
 
-void GameSceneManager::Update(const float deltaTime) {
+void GameSceneManager::Update(const float deltaTime)
+{
 	assert(currentScene); 
 	currentScene->Update(deltaTime);
 }
 
 
-void GameSceneManager::Render() const {
+void GameSceneManager::Render() const 
+{
 	assert(currentScene); 
 	currentScene->Render();
 } 
 
 
-bool GameSceneManager::Initialize(){
+bool GameSceneManager::Initialize()
+{
 	Debug::Log(EMessageType::INFO, "Initializing the window and first scene" ,__FILE__, __LINE__);
 
 	windowInstance.setWindowSize(1024, 740);
@@ -128,7 +140,7 @@ bool GameSceneManager::Initialize(){
 	}
 
 	
-	currentScene = new GameScene(windowInstance);
+	currentScene = new OpeningScene(windowInstance);
 
 	if(currentScene == nullptr){
 		Debug::Log(EMessageType::FATAL_ERROR, "Failed to initialize the Scene",__FILE__, __LINE__);
