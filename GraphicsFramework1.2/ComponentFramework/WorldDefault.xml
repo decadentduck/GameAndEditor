@@ -1,4 +1,4 @@
-<objects>
+<World>
 	<object name="Tree1">
 		<pos X="1" Y="1" Z="1"></pos>
 		<rot value="90"></rot>
@@ -23,4 +23,4 @@
 		<pos X = "-70" Y = "0" Z = "-20"></pos>
 		<rot value = "70"></rot>
 	</object>
-</objects>
+</World>
