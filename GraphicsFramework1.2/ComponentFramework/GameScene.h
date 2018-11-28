@@ -35,6 +35,7 @@ namespace GAME
 
 	private:
 		std::vector<Model*> models;
+		Vec3 eye, at, up;
 		Camera* camera;
 	};
 }

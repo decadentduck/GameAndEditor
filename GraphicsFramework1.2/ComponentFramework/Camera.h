@@ -17,6 +17,7 @@ namespace GAME {
 	private:
 		void updateViewMatrix();
 
+		Vec3 at, up;
 	public:
 
 		static Camera* currentCamera;
@@ -30,6 +31,7 @@ namespace GAME {
 		void setPos(const Vec3& pos_) override;
 		void setOrientation(const Vec3& orienration_) override;
 
+		void SetCamera(const Vec3& eye_, const Vec3& at_, const Vec3& up_);
 
 
 	};

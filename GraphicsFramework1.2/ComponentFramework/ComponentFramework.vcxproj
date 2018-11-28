@@ -80,6 +80,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="OpeningScene.cpp" />
+    <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneEnvironment.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -102,6 +103,8 @@
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="OpeningScene.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="pugiconfig.hpp" />
+    <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneEnvironment.h" />
     <ClInclude Include="Shader.h" />

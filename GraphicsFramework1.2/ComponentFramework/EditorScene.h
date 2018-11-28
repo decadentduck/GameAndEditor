@@ -1,9 +1,10 @@
 #ifndef EDITORSCENE_H
 #define EDITORSCENE_H
-
 #include "Scene.h"
 #include "Model.h"
 #include "Camera.h"
+
+using namespace std;
 
 namespace GAME 
 {
@@ -12,13 +13,11 @@ namespace GAME
 	class EditorScene : public Scene 
 	{
 	protected:
-
-		bool addModel(const char* filename);
+		bool addModel(const string file, const Vec3 pos, const float rot);
 		
 	public:
 		explicit EditorScene(Window& windowRef);
 		virtual ~EditorScene();
-
 
 		/// Delete these possible default constructors and operators  
 		EditorScene(const EditorScene&) = delete;
@@ -26,7 +25,7 @@ namespace GAME
 		EditorScene& operator=(const EditorScene &) = delete;
 		EditorScene& operator=(EditorScene &&) = delete;
 
-		virtual bool OnCreate() ;
+		virtual bool OnCreate();
 		virtual void OnDestroy();
 		virtual void Update(const float deltaTime);
 		virtual void Render() const;
@@ -36,6 +35,7 @@ namespace GAME
 	private:
 		std::vector<Model*> models;
 		Camera* camera;
+		bool LoadFile(char file[]);
 	};
 }
 #endif
