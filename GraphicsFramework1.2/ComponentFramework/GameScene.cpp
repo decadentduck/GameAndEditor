@@ -16,16 +16,19 @@ GameScene::GameScene(Window& windowRef) :Scene(windowRef) { }
 
 bool GameScene::OnCreate() 
 {
-	eye = Vec3(0.0f, 0.0f, 10.0f);
+
+	eye = Vec3(0.0f, 0.0f, 90.0f);
 	at = Vec3(0.0f, 0.0f, -1.0f);
 	up = Vec3(0.0f, 1.0f, 0.0f);
 	camera = nullptr;
 
 	/// Load Assets: as needed 
-	if (addModel("Tree1.obj") == false) { return false; }
+	if (addModel("Jellyfish.obj", Vec3(0, 15, 0), Vec3(0, 0, 0), Vec3(0, 0, 0)) == false) { return false; }
 
 	/// Create a shader with attributes
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
+
+	shotDelay = 0.0f;
 
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
 	return true;
@@ -34,12 +37,23 @@ bool GameScene::OnCreate()
 
 bool GAME::GameScene::addModel(const char* filename)
 {
-	models.push_back(new Model(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f)));
+	models.push_back(new Model(Vec3(0.0f, -10.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f)));
 	models[models.size() - 1]->OnCreate();
 
 	if (models[models.size() - 1]->LoadMesh(filename) == false) { return false; }
 	return true;
 }
+
+
+bool GAME::GameScene::addModel(const char* filename, Vec3 pos, Vec3 rot, Vec3 vel)
+{
+	models.push_back(new Model(pos, rot, vel));
+	models[models.size() - 1]->OnCreate();
+
+	if (models[models.size() - 1]->LoadMesh(filename) == false) { return false; }
+	return true;
+}
+
 
 void GameScene::OnResize(int w_, int h_) 
 {
@@ -53,7 +67,12 @@ void GameScene::OnResize(int w_, int h_)
 
 void GameScene::Update(const float deltaTime) 
 {
-	for (Model* model : models) { model->Update(deltaTime); }
+	for (Model* model : models) 
+	{ 
+		model->Update(deltaTime); 
+	}
+
+	shotDelay -= deltaTime;
 }
 
 void GameScene::Render() const 
@@ -85,14 +104,25 @@ void GameScene::HandleEvents(const SDL_Event& SDLEvent)
 			at = MMath::translate(0.0f, 0.0f, 1.0f) * at;
 			break;
 		case SDLK_LEFT:
-			at = at - eye;
-			at = MMath::rotate(5, 0.0f, 1.0f, 0.0f) * at;
-			at = at + eye;
+			eye = MMath::translate(1.0f, 0.0f, 0.0f) * eye;
+			at = MMath::translate(1.0f, 0.0f, 0.0f) * at;
 			break;
 		case SDLK_RIGHT:
-			at = at - eye;
-			at = MMath::rotate(-5, 0.0f, 1.0f, 0.0f) * at;
-			at = at + eye;
+			eye = MMath::translate(-1.0f, 0.0f, 0.0f) * eye;
+			at = MMath::translate(-1.0f, 0.0f, 0.0f) * at;
+			break;
+		//case SDLK_LEFT:
+		//	at = at - eye;
+		//	at = MMath::rotate(5, 0.0f, 1.0f, 0.0f) * at;
+		//	at = at + eye;
+		//	break;
+		//case SDLK_RIGHT:
+		//	at = at - eye;
+		//	at = MMath::rotate(-5, 0.0f, 1.0f, 0.0f) * at;
+		//	at = at + eye;
+		//	break;
+		case SDLK_SPACE:
+			if (shotDelay <= 0) { printf("fired\n"); Fire(); }
 			break;
 		default:
 			break;
@@ -115,4 +145,10 @@ void GameScene::OnDestroy()
 	for (Model* model : models) {
 		if (model) delete model;
 	}
+}
+
+void GameScene::Fire() 
+{
+	shotDelay = 1.0f;
+	addModel("Missile.obj", Vec3(eye.x, 20, eye.z - 20), Vec3(0, 0, 0), Vec3(0, 0, 10));
 }
