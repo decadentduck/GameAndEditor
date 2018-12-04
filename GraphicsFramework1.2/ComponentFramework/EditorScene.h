@@ -35,7 +35,6 @@ namespace GAME
 	private:
 		std::vector<Model*> models;
 		Camera* camera;
-		bool LoadFile(char file[]);
 	};
 }
 #endif

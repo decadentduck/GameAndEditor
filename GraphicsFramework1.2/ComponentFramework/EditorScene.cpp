@@ -6,8 +6,6 @@
 #include "Shader.h"
 #include "EditorScene.h"
 #include "SceneEnvironment.h"
-#include "Trackball.h"
-#include "pugixml.hpp"
 #include "ObjLoader.h"
 #include <string>
 
@@ -28,7 +26,10 @@ bool EditorScene::OnCreate()
 	camera = nullptr;
 	
 	/// Load Assets: as needed 
-	if (addModel("Tree1.obj", Vec3(), 0.0f) == false) { return false; }
+	//createlist of default objects
+
+	//create list of scene objects
+
 
 	/// Create a shader with attributes
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
@@ -90,83 +91,10 @@ void EditorScene::Render() const{
 }
 
 
-bool EditorScene::LoadFile(char file[])
+void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 {
-	models.clear();
-	pugi::xml_document doc;
-	pugi::xml_parse_result result;
 
-
-	string name = string("");
-	Vec3 pos = Vec3(0, 0, 0);
-	int rot = 0;
-
-	result = doc.load_file(file); 
-
-	if (result)
-	{
-		pugi::xml_node parent = doc.child("objects");
-
-		for (pugi::xml_node child : parent.children())
-		{
-			if (child.attribute("name"))
-			{
-				name = child.attribute("name").value();
-			}
-
-			for (pugi::xml_node grandChild : child.children("pos"))
-			{
-				float x, y, z;
-				x = y = z = 0.0f;
-
-				if (grandChild.attribute("X"))
-				{
-					x = atof(grandChild.attribute("X").value());
-				}
-				if (grandChild.attribute("Y"))
-				{
-					y = atof(grandChild.attribute("Y").value());
-				}
-				if (grandChild.attribute("Z"))
-				{
-					z = atof(grandChild.attribute("Z").value());
-				}
-				pos = Vec3(x, y, z);
-
-			}
-
-			for (pugi::xml_node grandChild : child.children("rot"))
-			{
-				if (grandChild.attribute("value"))
-				{
-					rot = atof(grandChild.attribute("value").value());
-				}
-			}
-
-			//instantiate the object here
-			if (!addModel(name, pos, rot)) return false;
-			//empty temp values
-			name = "";
-			pos = Vec3(0.0f, 0.0f, 0.0f);
-			rot = 0.0f;			
-
-		}
-	}
-	else { return false; }
-
-	return true;
-}
-
-void EditorScene::HandleEvents(const SDL_Event& SDLEvent){
-	if (SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN) {
-		Trackball::getInstance()->onLeftMouseDown(SDLEvent.button.x, SDLEvent.button.y);
-	}else if(SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONUP){
-		Trackball::getInstance()->onLeftMouseUp(SDLEvent.button.x, SDLEvent.button.y);
-	}else if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION && 
-		SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-		Trackball::getInstance()->onMouseMove(SDLEvent.button.x, SDLEvent.button.y);
-	}
-		
+	
 }
 
 EditorScene::~EditorScene() {
