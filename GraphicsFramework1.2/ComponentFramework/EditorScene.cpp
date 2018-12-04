@@ -19,7 +19,6 @@ EditorScene::EditorScene(Window& windowRef):Scene(windowRef)
 
 }
 
-
 bool EditorScene::OnCreate() 
 {
 	
@@ -37,7 +36,6 @@ bool EditorScene::OnCreate()
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
 	return true;
 }
-
 
 bool EditorScene::addModel(const string tree, const Vec3 pos, const float rot)
 {
@@ -90,7 +88,6 @@ void EditorScene::Render() const{
 	
 }
 
-
 void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 {
 
@@ -104,7 +101,6 @@ EditorScene::~EditorScene() {
 void EditorScene::OnDestroy() {
 	/// Cleanup Assets
 	if (camera) delete camera;
-	for (Model* model : models) {
-		if (model) delete model;
-	}
+	for (Model* model : defaultModels) { if (model) delete model; }
+	for (Model* model : gameModels) { if (model) delete model; }
 }
