@@ -72,6 +72,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EditorScene.cpp" />
+    <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FileReader.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

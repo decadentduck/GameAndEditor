@@ -33,7 +33,10 @@ namespace GAME
 		virtual void OnResize(const int, const int);
 	
 	private:
-		std::vector<Model*> models;
+		std::vector<Model*> defaultModels;
+		std::vector<Model*> gameModels;
+		//undo list
+		//redo list
 		Camera* camera;
 	};
 }
