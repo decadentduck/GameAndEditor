@@ -8,21 +8,23 @@
 namespace GAME 
 {
 
-	Model::Model(const Vec3 pos_, const Vec3 orientation_) 
+	Model::Model(const Vec3 pos_, const Vec3 orientation_, Vec3 velocity_)
 	{
 		pos = pos_;
 		orientation = orientation_;
 		rotation = 0.0f;
 		scale = Vec3(1.0f, 1.0f, 1.0f);
+		velocity = velocity_;
 		shader = nullptr;
 	}
 
-	Model::Model(const Vec3 pos_, const Vec3 orientation_, const float rotation_, const Vec3 scale_) 
+	Model::Model(const Vec3 pos_, const Vec3 orientation_, const float rotation_, const Vec3 scale_, Vec3 velocity_)
 	{
 		pos = pos_;
 		orientation = orientation_;
 		rotation = rotation_;
 		scale = scale_;
+		velocity = velocity_;
 		shader = nullptr;
 	}
 
@@ -68,6 +70,14 @@ namespace GAME
 
 	void Model::Update(const float deltaTime) 
 	{
+		pos.x = pos.x * (velocity.x / deltaTime);
+		pos.y = pos.y * (velocity.y / deltaTime);
+		pos.z = pos.z * (velocity.z / deltaTime);
+	}
+
+	void Model::Update(const float deltaTime, Vec3 velocity)
+	{
+
 	}
 
 	void Model::Render() const 

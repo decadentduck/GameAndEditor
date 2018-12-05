@@ -14,6 +14,7 @@ namespace GAME
 	protected:
 
 		bool addModel(const char* filename);
+		bool addModel(const char* filename, Vec3 pos, Vec3 rot, Vec3 vel);
 
 	public:
 		explicit GameScene(Window& windowRef);
@@ -32,11 +33,13 @@ namespace GAME
 		virtual void Render() const;
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
+		virtual void Fire();
 
 	private:
 		std::vector<Model*> models;
 		Vec3 eye, at, up;
 		Camera* camera;
+		float shotDelay;
 	};
 }
 #endif
