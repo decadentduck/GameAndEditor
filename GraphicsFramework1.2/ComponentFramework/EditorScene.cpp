@@ -43,7 +43,7 @@ bool EditorScene::OnCreate()
 bool EditorScene::addModel(const string tree, const Vec3 pos, const float rot)
 {
 
-	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f)));
+	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f)));
 	gameModels[gameModels.size() - 1]->OnCreate();
 	if (tree == "Tree1.obj")
 	{

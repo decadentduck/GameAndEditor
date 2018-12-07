@@ -39,7 +39,7 @@ bool OpeningScene::OnCreate() {
 
 bool GAME::OpeningScene::addModel(const char* filename)
 {
-	models.push_back(new Model(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f)));
+	models.push_back(new Model(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0, 0, 0)));
 	models[models.size() - 1]->OnCreate();
 
 	if (models[models.size() - 1]->LoadMesh(filename) == false) {
