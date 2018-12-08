@@ -13,8 +13,8 @@ namespace GAME
 	{
 	protected:
 
-		bool addModel(const char* filename);
-		bool addModel(const char* filename, Vec3 pos, Vec3 rot, Vec3 vel);
+		bool addEnem(Vec3 pos, Vec3 rot, Vec3 vel);
+		bool addMiss(Vec3 pos, Vec3 rot, Vec3 vel);
 
 	public:
 		explicit GameScene(Window& windowRef);
@@ -36,10 +36,11 @@ namespace GAME
 		virtual void Fire();
 
 	private:
-		std::vector<Model*> models;
+		std::vector<Model*> enems, miss;
 		Vec3 eye, at, up;
 		Camera* camera;
 		float shotDelay;
+		bool gameWin;
 	};
 }
 #endif
