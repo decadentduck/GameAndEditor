@@ -112,18 +112,23 @@ void GameScene::HandleEvents(const SDL_Event& SDLEvent)
 	
 		if (SDLEvent.type == SDL_KEYDOWN)
 		{
-			//printf("KEYPRESS\n");
 			switch (SDLEvent.key.keysym.sym)
 			{
 				if (!gameWin)
 				{
 			case SDLK_LEFT:
-				eye = MMath::translate(1.0f, 0.0f, 0.0f) * eye;
-				at = MMath::translate(1.0f, 0.0f, 0.0f) * at;
+				if (eye.x < 100) {
+					eye = MMath::translate(1.0f, 0.0f, 0.0f) * eye;
+					at = MMath::translate(1.0f, 0.0f, 0.0f) * at;
+				}
+				else { printf("left limit\n"); }
 				break;
 			case SDLK_RIGHT:
-				eye = MMath::translate(-1.0f, 0.0f, 0.0f) * eye;
-				at = MMath::translate(-1.0f, 0.0f, 0.0f) * at;
+				if (eye.x > -100) {
+					eye = MMath::translate(-1.0f, 0.0f, 0.0f) * eye;
+					at = MMath::translate(-1.0f, 0.0f, 0.0f) * at;
+				}
+				else { printf("right limit\n"); }
 				break;
 
 			case SDLK_SPACE:
