@@ -62,7 +62,7 @@ void GameScene::OnResize(int w_, int h_)
 	windowPtr->setWindowSize(w_, h_);
 	glViewport(0, 0, windowPtr->getWidth(), windowPtr->getHeight());
 	if (camera) delete camera;
-	camera = new Camera(w_, h_, Vec3(0.0f, 0.0f, 10.0f));
+	camera = new Camera(w_, h_);
 	camera->SetCamera(eye, at, up);
 	Trackball::getInstance()->setWindowDimensions(windowPtr->getWidth(), windowPtr->getHeight());
 }
@@ -164,5 +164,5 @@ void GameScene::OnDestroy()
 void GameScene::Fire() 
 {
 	shotDelay = 1.5f;
-	addMiss(Vec3((-1 * eye.x) + 10, 20, eye.z - 40), Vec3(0, 0, 0), Vec3(0, 0, -50));
+	addMiss(Vec3((eye.x) + 10, 20, eye.z - 40), Vec3(0, 0, 0), Vec3(0, 0, -50));
 }
