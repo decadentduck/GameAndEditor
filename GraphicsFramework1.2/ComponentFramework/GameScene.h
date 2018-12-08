@@ -34,13 +34,15 @@ namespace GAME
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
 		virtual void Fire();
+		virtual void StartFile(const char file_);
+		virtual void StartBasic();
 
 	private:
 		std::vector<Model*> enems, miss;
 		Vec3 eye, at, up;
 		Camera* camera;
 		float shotDelay;
-		bool gameWin;
+		bool gameStart, gameWin, gameLoss;
 	};
 }
 #endif
