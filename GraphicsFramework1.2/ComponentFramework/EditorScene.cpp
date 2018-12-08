@@ -110,41 +110,49 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 			break;
 		case SDLK_w:
 			//camera moverment;
+			eye = MMath::translate(0.0f, 0.0f, 1.0f) * eye;
+			at = MMath::translate(0.0f, 0.0f, 1.0f) * at;
+			break;
+		case SDLK_a:
+			//camera moverment;
+			eye = MMath::translate(1.0f, 0.0f, 0.0f) * eye;
+			at = MMath::translate(1.0f, 0.0f, 0.0f) * at;
+			break;
+		case SDLK_s:
+			//camera moverment;
 			eye = MMath::translate(0.0f, 0.0f, -1.0f) * eye;
 			at = MMath::translate(0.0f, 0.0f, -1.0f) * at;
 			break;
-		case SDLK_a:
+		case SDLK_d:
 			//camera moverment;
 			eye = MMath::translate(-1.0f, 0.0f, 0.0f) * eye;
 			at = MMath::translate(-1.0f, 0.0f, 0.0f) * at;
 			break;
-		case SDLK_s:
-			//camera moverment;
-			eye = MMath::translate(0.0f, 0.0f, 1.0f) * eye;
-			at = MMath::translate(0.0f, 0.0f, 1.0f) * at;
-			break;
-		case SDLK_d:
-			//camera moverment;
-			eye = MMath::translate(01.0f, 0.0f, 0.0f) * eye;
-			at = MMath::translate(01.0f, 0.0f, 0.0f) * at;
-			break;
 		case SDLK_z:
 			//object selection
+			selectedObjectIndex--;
+			if (selectedObjectIndex < 0) selectedObjectIndex = gameModels.size() - 1;
 			break;
 		case SDLK_x:
 			//object selection
+			selectedObjectIndex++;
+			if (selectedObjectIndex == gameModels.size()) selectedObjectIndex = 0;
 			break;
 		case SDLK_LEFT:
 			//move object
+			gameModels[selectedObjectIndex]->setPos( MMath::translate( Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		case SDLK_RIGHT:
 			//move object
+			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		case SDLK_UP:
 			//move object
+			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		case SDLK_DOWN:
 			//move object
+			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		default:
 			break;

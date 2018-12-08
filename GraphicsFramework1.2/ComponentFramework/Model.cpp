@@ -95,8 +95,7 @@ namespace GAME
 
 		glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, Camera::currentCamera->getProjectionMatrix());
 		glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, Camera::currentCamera->getViewMatrix());
-		Matrix4 _modelMatrix = MMath::rotate(rotation, 0.0f, 1.0f, 0.0f) * MMath::scale(scale) *
-			MMath::translate(-10.0f, -30.0f, 0.0f) * modelMatrix;
+		Matrix4 _modelMatrix = MMath::translate(-10.0f, -30.0f, 0.0f) * MMath::rotate(rotation, 0.0f, 1.0f, 0.0f) * MMath::scale(scale) * modelMatrix;
 		glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, _modelMatrix);
 		/*** If you want to use the trackball use this code instead
 		glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, modelMatrix * Trackball::getInstance()->getMatrix4());
