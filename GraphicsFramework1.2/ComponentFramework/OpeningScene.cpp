@@ -52,7 +52,7 @@ void OpeningScene::OnResize(int w_, int h_) {
 	windowPtr->setWindowSize(w_, h_);
 	glViewport(0, 0, windowPtr->getWidth(), windowPtr->getHeight());
 	if (camera) delete camera;
-	camera = new Camera(w_, h_, Vec3(0.0f, 0.0f, 10.0f));
+	camera = new Camera(w_, h_);
 	Camera::currentCamera = camera;
 	Trackball::getInstance()->setWindowDimensions(windowPtr->getWidth(), windowPtr->getHeight());
 }

@@ -22,7 +22,7 @@ namespace GAME {
 
 		static Camera* currentCamera;
 
-		Camera(const int viewportWidth, const int viewportHeight, const Vec3 pos_);
+		Camera(const int viewportWidth, const int viewportHeight);
 		~Camera();
 
 		Matrix4&  getProjectionMatrix();

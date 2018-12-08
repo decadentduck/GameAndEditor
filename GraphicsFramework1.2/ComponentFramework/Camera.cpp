@@ -4,9 +4,11 @@ namespace GAME {
 
 	Camera* Camera::currentCamera = nullptr;
 
-	Camera::Camera(const int viewportWidth, const int viewportHeight, const Vec3 pos_)
+	Camera::Camera(const int viewportWidth, const int viewportHeight)
 	{
-		pos = pos_;
+		pos = Vec3(0.0f, -30.0f, 10.0f);
+		at = Vec3(0.0f, 0.0f, -1.0f);
+		up = Vec3(0.0f, 1.0f, 0.0f);
 		float aspect = float(viewportWidth) / float(viewportHeight);
 		projectionMatrix = MMath::perspective(45.0f, aspect, 0.75f, 100.0f);
 		updateViewMatrix();
@@ -15,9 +17,7 @@ namespace GAME {
 	Camera::~Camera() {}
 
 	void Camera::updateViewMatrix(){
-		viewMatrix = MMath::lookAt(pos,
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 1.0f, 0.0f));
+		viewMatrix = MMath::lookAt(pos, at, up);
 	}
 
 	Matrix4&  Camera::getProjectionMatrix() {

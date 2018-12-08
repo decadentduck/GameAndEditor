@@ -22,11 +22,14 @@ EditorScene::EditorScene(Window& windowRef):Scene(windowRef)
 
 bool EditorScene::OnCreate() 
 {
-	
+	eye = Vec3(0.0f, -30.0f, 10.0f);
+	at = Vec3(0.0f, 0.0f, -1.0f);
+	up = Vec3(0.0f, 1.0f, 0.0f);
 	camera = nullptr;
 	
 	FileReader f = FileReader();
 	
+	selectedObjectIndex = 0;
 	//createlist of default objects
 	defaultModels = f.LoadFile("ObjectsDefault.xml");
 
@@ -68,7 +71,8 @@ void EditorScene::OnResize(int w_, int h_)
 	windowPtr->setWindowSize(w_,h_);
 	glViewport(0,0,windowPtr->getWidth(),windowPtr->getHeight());
 	if (camera) delete camera;
-	camera = new Camera(w_, h_, Vec3(0.0f, 20.0f, 0.0f));
+	camera = new Camera(w_, h_, Vec3(0.0f, 0.0f, 10.0f));
+	camera->SetCamera(eye, at, up);
 	Camera::currentCamera = camera;
 }
 
@@ -104,6 +108,26 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 		case SDLK_3:
 			//create tree one
 			break;
+		case SDLK_w:
+			//camera moverment;
+			eye = MMath::translate(0.0f, 0.0f, -1.0f) * eye;
+			at = MMath::translate(0.0f, 0.0f, -1.0f) * at;
+			break;
+		case SDLK_a:
+			//camera moverment;
+			eye = MMath::translate(-1.0f, 0.0f, 0.0f) * eye;
+			at = MMath::translate(-1.0f, 0.0f, 0.0f) * at;
+			break;
+		case SDLK_s:
+			//camera moverment;
+			eye = MMath::translate(0.0f, 0.0f, 1.0f) * eye;
+			at = MMath::translate(0.0f, 0.0f, 1.0f) * at;
+			break;
+		case SDLK_d:
+			//camera moverment;
+			eye = MMath::translate(01.0f, 0.0f, 0.0f) * eye;
+			at = MMath::translate(01.0f, 0.0f, 0.0f) * at;
+			break;
 		case SDLK_z:
 			//object selection
 			break;
@@ -125,6 +149,8 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 		default:
 			break;
 		}
+		camera->SetCamera(eye, at, up);
+		Camera::currentCamera = camera;
 	}
 }
 

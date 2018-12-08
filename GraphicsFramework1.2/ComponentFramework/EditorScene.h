@@ -35,8 +35,10 @@ namespace GAME
 	private:
 		std::vector<Model*> defaultModels;
 		std::vector<Model*> gameModels;
+		int selectedObjectIndex;
 		//undo list
 		//redo list
+		Vec3 eye, at, up;
 		Camera* camera;
 	};
 }
