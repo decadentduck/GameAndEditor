@@ -31,6 +31,7 @@ namespace GAME {
 		virtual ~Model();
 
 		void setPos(const Vec3& pos_) override;
+		Vec3 getPosition();
 		void setOrientation(const Vec3& orienration_) override;
 
 		virtual bool OnCreate();

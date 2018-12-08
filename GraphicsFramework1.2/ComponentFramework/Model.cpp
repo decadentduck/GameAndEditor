@@ -70,9 +70,11 @@ namespace GAME
 
 	void Model::Update(const float deltaTime) 
 	{
-		pos.x = pos.x * (velocity.x / deltaTime);
-		pos.y = pos.y * (velocity.y / deltaTime);
-		pos.z = pos.z * (velocity.z / deltaTime);
+		pos.x += velocity.x  * deltaTime;
+		pos.y += velocity.y * deltaTime;
+		pos.z += velocity.z * deltaTime;
+
+		setPos(pos);
 	}
 
 	void Model::Update(const float deltaTime, Vec3 velocity)
@@ -120,5 +122,10 @@ namespace GAME
 	void Model::OnDestroy() 
 	{
 		if (shader) delete shader;
+	}
+
+	Vec3 Model::getPosition() 
+	{
+		return pos;
 	}
 }
