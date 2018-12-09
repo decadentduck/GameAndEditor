@@ -1,6 +1,7 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+#include <string>
 #include "Scene.h"
 #include "Model.h"
 #include "Camera.h"
@@ -13,8 +14,8 @@ namespace GAME
 	{
 	protected:
 
-		bool addEnem(Vec3 pos, Vec3 rot, Vec3 vel);
-		bool addMiss(Vec3 pos, Vec3 rot, Vec3 vel);
+		bool addEnem(Vec3 pos, Vec3 vel);
+		bool addMiss(Vec3 pos, Vec3 vel);
 
 	public:
 		explicit GameScene(Window& windowRef);
@@ -34,7 +35,7 @@ namespace GAME
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
 		virtual void Fire();
-		virtual void StartFile(const char file_);
+		virtual bool StartFile(const char file_);
 		virtual void StartBasic();
 
 	private:

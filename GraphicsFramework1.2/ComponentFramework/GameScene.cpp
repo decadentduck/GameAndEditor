@@ -8,6 +8,7 @@
 #include "SceneEnvironment.h"
 #include "Trackball.h"
 #include "ObjLoader.h"
+#include "pugixml.hpp"
 
 using namespace GAME;
 using namespace MATH;
@@ -38,9 +39,9 @@ bool GameScene::OnCreate()
 }
 
 
-bool GAME::GameScene::addEnem(Vec3 pos, Vec3 rot, Vec3 vel)
+bool GAME::GameScene::addEnem(Vec3 pos, Vec3 vel)
 {
-	enems.push_back(new Model(pos, rot, vel));
+	enems.push_back(new Model(pos, Vec3(), vel));
 	enems[enems.size() - 1]->OnCreate();
 
 	if (enems[enems.size() - 1]->LoadMesh("Jellyfish.obj") == false) { return false; }
@@ -48,15 +49,14 @@ bool GAME::GameScene::addEnem(Vec3 pos, Vec3 rot, Vec3 vel)
 }
 
 
-bool GAME::GameScene::addMiss(Vec3 pos, Vec3 rot, Vec3 vel)
+bool GAME::GameScene::addMiss(Vec3 pos, Vec3 vel)
 {
-	miss.push_back(new Model(pos, rot, vel));
+	miss.push_back(new Model(pos, Vec3(), vel));
 	miss[miss.size() - 1]->OnCreate();
 
 	if (miss[miss.size() - 1]->LoadMesh("Missile.obj") == false) { return false; }
 	return true;
 }
-
 
 void GameScene::OnResize(int w_, int h_) 
 {
@@ -134,7 +134,7 @@ void GameScene::HandleEvents(const SDL_Event& SDLEvent)
 				StartBasic();
 				break;
 			case SDLK_2:
-				//StartFile();
+				//StartFile("uhhhhhhh");
 				break;
 				}
 				else if (!gameWin && !gameLoss && gameStart)
@@ -196,20 +196,66 @@ void GameScene::OnDestroy()
 void GameScene::Fire() 
 {
 	shotDelay = 1.5f;
-	addMiss(Vec3((eye.x) + 10, 20, eye.z - 10), Vec3(0, 0, 0), Vec3(0, 0, -80));
+	addMiss(Vec3((eye.x) + 10, 20, eye.z - 10), Vec3(0, 0, -80));
 }
 
 void GameScene::StartBasic() 
 {
-	addEnem(Vec3(0.0f, 15.0f, -20.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
-	addEnem(Vec3(60.0f, 15.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
-	addEnem(Vec3(-30.0f, 15.0f, -40.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
-	addEnem(Vec3(-50.0f, 15.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
+	addEnem(Vec3(0.0f, 15.0f, -20.0f), Vec3(0.0f, 0.0f, 3.0f));
+	addEnem(Vec3(60.0f, 15.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
+	addEnem(Vec3(-30.0f, 15.0f, -40.0f), Vec3(0.0f, 0.0f, 3.0f));
+	addEnem(Vec3(-50.0f, 15.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
 
 	gameStart = true;
 }
 
-void GameScene::StartFile(const char file_) 
+bool GameScene::StartFile(const char file_) 
 {
+	Vec3 pos = Vec3();
+	pugi::xml_document doc;
+	pugi::xml_parse_result result;
+	Vec3 pos = Vec3(0, 0, 0);
+	int rot = 0;
 
+	pugi::xml_node parent = doc.child("objects");
+
+	for (pugi::xml_node child : parent.children())
+	{
+
+		for (pugi::xml_node grandChild : child.children("pos"))
+		{
+			float x, y, z;
+			x = y = z = 0.0f;
+
+			if (grandChild.attribute("X"))
+			{
+				x = atof(grandChild.attribute("X").value());
+			}
+			if (grandChild.attribute("Y"))
+			{
+				y = atof(grandChild.attribute("Y").value());
+			}
+			if (grandChild.attribute("Z"))
+			{
+				z = atof(grandChild.attribute("Z").value());
+			}
+			pos = Vec3(x, y, z);
+
+		}
+
+		for (pugi::xml_node grandChild : child.children("rot"))
+		{
+			if (grandChild.attribute("value"))
+			{
+				rot = atof(grandChild.attribute("value").value());
+			}
+		}
+
+		//instantiate the object here
+		if (!addEnem(pos, Vec3(0.0f, 0.0f, 3.0f))) return false;
+		//empty temp values
+		pos = Vec3(0.0f, 0.0f, 0.0f);
+		rot = 0.0f;
+	}
+}
 }
