@@ -83,10 +83,14 @@ void EditorScene::Render() const
 
 void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 {
+	FileReader FR = FileReader();
 	if (SDLEvent.type == SDL_KEYDOWN)
 	{
 		switch (SDLEvent.key.keysym.sym)
 		{
+		case SDLK_e:
+			FR.SaveFile("SaveFile.xml", gameModels);
+			break;
 		case SDLK_1:
 			//create tree one
 			break;

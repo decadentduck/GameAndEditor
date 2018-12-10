@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Objects>
+	<object>
+		<pos X="-78" Y="1" Z="122" />
+	</object>
+	<object>
+		<pos X="140" Y="0" Z="-56" />
+	</object>
+	<object>
+		<pos X="-89" Y="0" Z="59" />
+	</object>
+	<object>
+		<pos X="189" Y="0" Z="-77" />
+	</object>
+	<object>
+		<pos X="-30" Y="0" Z="-65" />
+	</object>
+	<object>
+		<pos X="-70" Y="0" Z="-134" />
+	</object>
+</Objects>

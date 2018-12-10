@@ -2,14 +2,9 @@
 
 using namespace GAME;
 
-FileReader::FileReader()
-{
-}
+FileReader::FileReader() { }
 
-
-FileReader::~FileReader()
-{
-}
+FileReader::~FileReader() { }
 
 std::vector<Model*> FileReader::LoadFile(char file[])
 {
@@ -17,7 +12,6 @@ std::vector<Model*> FileReader::LoadFile(char file[])
 
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
-
 
 	string name = string("");
 	Vec3 pos = Vec3(0, 0, 0);
@@ -91,15 +85,22 @@ void FileReader::SaveFile(char file[], std::vector<Model*> models_)
 	{
 		pugi::xml_node parent = doc.child("Objects");
 
-		for (pugi::xml_node child : parent.children())
+		doc.remove_child(parent);
+		//for (pugi::xml_node child : parent.children())
+		//{
+		//	parent.remove_child(child);
+		//	printf("child removed ");
+		//}
+	/*	for (pugi::xml_node child = parent.first_child(); child; child = child.next_sibling())
 		{
-			parent.remove_child("object");
-		}
-
+			parent.remove_child(child);
+			printf("child removed ");
+		}*/
+		parent = doc.append_child("Objects");
 		for (Model *m : models_)
 		{
-			// add node with some name
-			pugi::xml_node node = parent.append_child("Object");
+			//add node with some name
+			pugi::xml_node node = parent.append_child("object");
 			//node.set_name(m->name);
 
 			// add description node with text child
@@ -107,9 +108,10 @@ void FileReader::SaveFile(char file[], std::vector<Model*> models_)
 			pos.append_attribute("X").set_value(m->getPosition().x);
 			pos.append_attribute("Y").set_value(m->getPosition().y);
 			pos.append_attribute("Z").set_value(m->getPosition().z);
-
+			printf("child added ");
 		}
-		doc.save_file("save_file_output.xml");
+
+		doc.save_file(file);
 	}
 }
 
@@ -135,4 +137,3 @@ bool FileReader::addModel(const string tree, const Vec3 pos, const float rot)
 
 	return true;
 }
-

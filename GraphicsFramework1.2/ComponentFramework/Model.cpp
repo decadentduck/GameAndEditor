@@ -54,8 +54,6 @@ namespace GAME
 		return true;
 	}
 
-
-
 	bool Model::LoadMesh(const char* filename) 
 	{
 		if (ObjLoader::loadOBJ(filename) == false) 
@@ -66,7 +64,6 @@ namespace GAME
 		meshes.push_back(new Mesh(GL_TRIANGLES, ObjLoader::vertices, ObjLoader::normals, ObjLoader::uvCoords));
 		return true;
 	}
-
 
 	void Model::Update(const float deltaTime) 
 	{
@@ -118,6 +115,7 @@ namespace GAME
 
 
 	}
+	
 	void Model::OnDestroy() 
 	{
 		if (shader) delete shader;

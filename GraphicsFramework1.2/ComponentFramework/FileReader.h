@@ -15,7 +15,7 @@ namespace GAME
 		std::vector<Model*> LoadFile(char file[]);
 		void SaveFile(char file[], std::vector<Model*> models_);
 	private:
-		bool addModel(const string file, const Vec3 pos, const float rot);
+		bool addModel(const string tree, const Vec3 pos, const float rot);
 		std::vector<Model*> models;
 	};
 
