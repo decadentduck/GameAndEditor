@@ -43,25 +43,13 @@ bool EditorScene::OnCreate()
 	return true;
 }
 
-bool EditorScene::addModel(const string tree, const Vec3 pos, const float rot)
+bool EditorScene::addModel(const char file[], const Vec3 pos, const float rot)
 {
 
 	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f)));
 	gameModels[gameModels.size() - 1]->OnCreate();
-	if (tree == "Tree1.obj")
-	{
-		if (gameModels[gameModels.size() - 1]->LoadMesh("Tree1.obj") == false)
-		{
-			return false;
-		}
-	}
-	else
-	{
-		if (gameModels[gameModels.size() - 1]->LoadMesh("Tree2.obj") == false)
-		{
-			return false;
-		}
-	}
+
+	if (gameModels[gameModels.size() - 1]->LoadMesh(file) == false) { return false; }
 
 	return true;
 }

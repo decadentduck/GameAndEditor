@@ -79,7 +79,39 @@ std::vector<Model*> FileReader::LoadFile(char file[])
 	return models;
 }
 
+void FileReader::SaveFile(char file[], std::vector<Model*> models_)
+{
+	pugi::xml_document doc;
+	pugi::xml_parse_result result;
+	float index = 0;
 
+	result = doc.load_file(file);
+
+	if (result)
+	{
+		pugi::xml_node parent = doc.child("Objects");
+
+		for (pugi::xml_node child : parent.children())
+		{
+			parent.remove_child("object");
+		}
+
+		for (Model *m : models_)
+		{
+			// add node with some name
+			pugi::xml_node node = parent.append_child("Object");
+			//node.set_name(m->name);
+
+			// add description node with text child
+			pugi::xml_node pos = node.append_child("pos");
+			pos.append_attribute("X").set_value(m->getPosition().x);
+			pos.append_attribute("Y").set_value(m->getPosition().y);
+			pos.append_attribute("Z").set_value(m->getPosition().z);
+
+		}
+		doc.save_file("save_file_output.xml");
+	}
+}
 
 bool FileReader::addModel(const string tree, const Vec3 pos, const float rot)
 {

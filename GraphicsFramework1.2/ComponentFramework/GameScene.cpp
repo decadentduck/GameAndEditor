@@ -211,7 +211,6 @@ void GameScene::StartBasic()
 
 bool GameScene::StartFile(const char file_) 
 {
-	Vec3 pos = Vec3();
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
 	Vec3 pos = Vec3(0, 0, 0);
@@ -257,5 +256,4 @@ bool GameScene::StartFile(const char file_)
 		pos = Vec3(0.0f, 0.0f, 0.0f);
 		rot = 0.0f;
 	}
-}
 }
