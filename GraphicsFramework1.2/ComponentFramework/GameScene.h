@@ -35,7 +35,7 @@ namespace GAME
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
 		virtual void Fire();
-		virtual bool StartFile(const char file_);
+		virtual bool StartFile(const char *file_);
 		virtual void StartBasic();
 
 	private:

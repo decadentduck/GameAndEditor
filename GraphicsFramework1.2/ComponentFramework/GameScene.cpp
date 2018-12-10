@@ -25,11 +25,6 @@ bool GameScene::OnCreate()
 	up = Vec3(0.0f, 1.0f, 0.0f);
 	camera = nullptr;
 
-	//call file reader and populate with enemies
-
-	/// Load Assets: as needed 
-
-	/// Create a shader with attributes
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
 
 	shotDelay = 0.0f;
@@ -37,7 +32,6 @@ bool GameScene::OnCreate()
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
 	return true;
 }
-
 
 bool GAME::GameScene::addEnem(Vec3 pos, Vec3 vel)
 {
@@ -47,7 +41,6 @@ bool GAME::GameScene::addEnem(Vec3 pos, Vec3 vel)
 	if (enems[enems.size() - 1]->LoadMesh("Jellyfish.obj") == false) { return false; }
 	return true;
 }
-
 
 bool GAME::GameScene::addMiss(Vec3 pos, Vec3 vel)
 {
@@ -134,7 +127,7 @@ void GameScene::HandleEvents(const SDL_Event& SDLEvent)
 				StartBasic();
 				break;
 			case SDLK_2:
-				//StartFile("uhhhhhhh");
+				StartFile("SaveFile");
 				break;
 				}
 				else if (!gameWin && !gameLoss && gameStart)
@@ -209,18 +202,16 @@ void GameScene::StartBasic()
 	gameStart = true;
 }
 
-bool GameScene::StartFile(const char file_) 
+bool GameScene::StartFile(const char *file_) 
 {
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
 	Vec3 pos = Vec3(0, 0, 0);
-	int rot = 0;
 
-	pugi::xml_node parent = doc.child("objects");
+	pugi::xml_node parent = doc.child("Objects");
 
 	for (pugi::xml_node child : parent.children())
 	{
-
 		for (pugi::xml_node grandChild : child.children("pos"))
 		{
 			float x, y, z;
@@ -242,18 +233,9 @@ bool GameScene::StartFile(const char file_)
 
 		}
 
-		for (pugi::xml_node grandChild : child.children("rot"))
-		{
-			if (grandChild.attribute("value"))
-			{
-				rot = atof(grandChild.attribute("value").value());
-			}
-		}
-
 		//instantiate the object here
 		if (!addEnem(pos, Vec3(0.0f, 0.0f, 3.0f))) return false;
 		//empty temp values
 		pos = Vec3(0.0f, 0.0f, 0.0f);
-		rot = 0.0f;
 	}
 }
