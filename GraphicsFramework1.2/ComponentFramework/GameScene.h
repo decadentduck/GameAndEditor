@@ -16,7 +16,7 @@ namespace GAME
 
 		bool addEnem(Vec3 pos, Vec3 vel);
 		bool addMiss(Vec3 pos, Vec3 vel);
-		bool winLose(const char *name_);
+		bool makePlane();
 
 	public:
 		explicit GameScene(Window& windowRef);
