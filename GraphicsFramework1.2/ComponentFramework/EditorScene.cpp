@@ -188,29 +188,29 @@ void EditorScene::Undo()
 {
 	if (actionList.size() > 1)
 	{
-		if (actionList[actionList.size() - 1].second == "create")
+		if (actionList.back().second == "create")
 		{
 			gameModels.pop_back();
 			actionList.pop_back();
 		}
-		else if (actionList[actionList.size() - 1].second == "moveleft")
+		else if (actionList.back().second == "moveleft")
 		{
-			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[actionList.back().first]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[actionList.back().first]->getPosition());
 			actionList.pop_back();
 		}
-		else if (actionList[actionList.size() - 1].second == "moveright")
+		else if (actionList.back().second == "moveright")
 		{
-			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[actionList.back().first]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[actionList.back().first]->getPosition());
 			actionList.pop_back();
 		}
-		else if (actionList[actionList.size() - 1].second == "movedown")
+		else if (actionList.back().second == "movedown")
 		{
-			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[actionList.back().first]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[actionList.back().first]->getPosition());
 			actionList.pop_back();
 		}
-		else if (actionList[actionList.size() - 1].second == "moveup")
+		else if (actionList.back().second == "moveup")
 		{
-			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[actionList.back().first]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[actionList.back().first]->getPosition());
 			actionList.pop_back();
 		}
 	}
