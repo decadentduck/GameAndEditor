@@ -86,6 +86,11 @@ void GameScene::Update(const float deltaTime)
 				if (dist <= 5) { miss.erase(miss.begin() + i); enems.erase(enems.begin() + j); }
 				j++;
 			}
+			for (Model* tree : trees) 
+			{
+				float dist = abs(sqrt(pow(model->getPosition().x - tree->getPosition().x, 2) + pow(model->getPosition().z - tree->getPosition().z, 2) + 0));
+				if (dist <= 10) { miss.erase(miss.begin() + i); printf("hit tree\n"); }
+			}
 			i++;
 		}
 
