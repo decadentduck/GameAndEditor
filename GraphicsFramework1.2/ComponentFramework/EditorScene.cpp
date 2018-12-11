@@ -37,12 +37,13 @@ bool EditorScene::OnCreate()
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
 
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
+
+	printf("Editor Controls: \nwasd to move the camera \narrows to move selected object \nz and x to cycle through game objects \ne to save current state \nu to undo \n1 2 3 to create game objects\n");
 	return true;
 }
 
 bool EditorScene::addModel(string file_, const Vec3 pos, const float rot)
 {
-
 	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f), file_.c_str()));
 	gameModels[gameModels.size() - 1]->OnCreate();
 
@@ -64,10 +65,7 @@ void EditorScene::OnResize(int w_, int h_)
 	Camera::currentCamera = camera;
 }
 
-void EditorScene::Update(const float deltaTime) 
-{
-	
-}
+void EditorScene::Update(const float deltaTime) { }
 
 void EditorScene::Render() const
 {
@@ -165,11 +163,10 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 	}
 }
 
-EditorScene::~EditorScene() {
-	OnDestroy();
-}
+EditorScene::~EditorScene() { OnDestroy(); }
 
-void EditorScene::OnDestroy() {
+void EditorScene::OnDestroy()
+{
 	/// Cleanup Assets
 	if (camera) delete camera;
 	for (Model* model : defaultModels) { if (model) delete model; }
