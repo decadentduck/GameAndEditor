@@ -17,6 +17,7 @@ namespace GAME
 		bool addEnem(Vec3 pos, Vec3 vel);
 		bool addMiss(Vec3 pos, Vec3 vel);
 
+
 	public:
 		explicit GameScene(Window& windowRef);
 		virtual ~GameScene();
@@ -35,7 +36,7 @@ namespace GAME
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
 		virtual void Fire();
-		virtual bool StartFile(const char *file_);
+		virtual bool StartFile(char *file_);
 		virtual void StartBasic();
 
 	private:

@@ -8,7 +8,7 @@
 #include "SceneEnvironment.h"
 #include "Trackball.h"
 #include "ObjLoader.h"
-#include "pugixml.hpp"
+#include "FileReader.h"
 
 using namespace GAME;
 using namespace MATH;
@@ -127,7 +127,7 @@ void GameScene::HandleEvents(const SDL_Event& SDLEvent)
 				StartBasic();
 				break;
 			case SDLK_2:
-				StartFile("SaveFile");
+				StartFile("WorldDefault.xml");
 				break;
 				}
 				else if (!gameWin && !gameLoss && gameStart)
@@ -202,40 +202,11 @@ void GameScene::StartBasic()
 	gameStart = true;
 }
 
-bool GameScene::StartFile(const char *file_) 
+bool GameScene::StartFile(char *file_) 
 {
-	pugi::xml_document doc;
-	pugi::xml_parse_result result;
-	Vec3 pos = Vec3(0, 0, 0);
+	FileReader fR = FileReader();
 
-	pugi::xml_node parent = doc.child("Objects");
+	fR.LoadFile(file_);
 
-	for (pugi::xml_node child : parent.children())
-	{
-		for (pugi::xml_node grandChild : child.children("pos"))
-		{
-			float x, y, z;
-			x = y = z = 0.0f;
-
-			if (grandChild.attribute("X"))
-			{
-				x = atof(grandChild.attribute("X").value());
-			}
-			if (grandChild.attribute("Y"))
-			{
-				y = atof(grandChild.attribute("Y").value());
-			}
-			if (grandChild.attribute("Z"))
-			{
-				z = atof(grandChild.attribute("Z").value());
-			}
-			pos = Vec3(x, y, z);
-
-		}
-
-		//instantiate the object here
-		if (!addEnem(pos, Vec3(0.0f, 0.0f, 3.0f))) return false;
-		//empty temp values
-		pos = Vec3(0.0f, 0.0f, 0.0f);
-	}
+	gameStart = true;
 }
