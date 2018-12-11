@@ -10,7 +10,7 @@ namespace GAME {
 		at = Vec3(0.0f, 0.0f, -1.0f);
 		up = Vec3(0.0f, 1.0f, 0.0f);
 		float aspect = float(viewportWidth) / float(viewportHeight);
-		projectionMatrix = MMath::perspective(45.0f, aspect, 0.75f, 100.0f);
+		projectionMatrix = MMath::perspective(45.0f, aspect, 0.75f, 1000.0f);
 		updateViewMatrix();
 	}
 
