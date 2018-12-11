@@ -40,7 +40,7 @@ namespace GAME
 		virtual void StartBasic();
 
 	private:
-		std::vector<Model*> enems, miss, wl, temp;
+		std::vector<Model*> enems, miss, wl, temp, trees;
 		Vec3 eye, at, up;
 		Camera* camera;
 		float shotDelay;

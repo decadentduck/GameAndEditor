@@ -124,6 +124,7 @@ void GameScene::Render() const
 	/// Draw your scene here
 	for (Model* model : miss) { model->Render(); }
 	for (Model* model : enems) { model->Render(); }
+	for (Model* model : trees) { model->Render(); }
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 
 }
@@ -230,8 +231,14 @@ bool GameScene::StartFile(char *file_)
 			model->setVel(Vec3(0, 0, 3.0f)); 
 			model->setScale(Vec3(1, 1, 1));
 		}
+		else 
+		{
+			trees.push_back(model);
+			model->setScale(Vec3(0.75f, 0.75f, 0.75f));
+		}
 		tempPos = model->getPosition();
 		model->setPos(Vec3(tempPos.x, 15.0f, tempPos.z));
+		
 	}
 
 	gameStart = true;
