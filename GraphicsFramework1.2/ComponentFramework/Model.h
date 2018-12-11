@@ -33,7 +33,10 @@ namespace GAME {
 		virtual ~Model();
 
 		void setPos(const Vec3& pos_) override;
+		void setVel(const Vec3 vel_);
+		void setScale(const Vec3 scale_);
 		Vec3 getPosition();
+		std::string getFileName();
 		void setOrientation(const Vec3& orienration_) override;
 		char *fileName;
 		std::string name;

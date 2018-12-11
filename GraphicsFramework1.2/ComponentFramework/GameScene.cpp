@@ -20,7 +20,7 @@ bool GameScene::OnCreate()
 	gameStart = false;
 	gameWin = false;
 	gameLoss = false;
-	eye = Vec3(0.0f, 0.0f, 90.0f); //90
+	eye = Vec3(0.0f, 0.0f, 90.0f);
 	at = Vec3(0.0f, 0.0f, -1.0f);
 	up = Vec3(0.0f, 1.0f, 0.0f);
 	camera = nullptr;
@@ -28,7 +28,6 @@ bool GameScene::OnCreate()
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
 
 	shotDelay = 0.0f;
-	makePlane();
 
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
 	return true;
@@ -220,7 +219,20 @@ bool GameScene::StartFile(char *file_)
 {
 	FileReader fR = FileReader();
 
-	fR.LoadFile(file_);
+	temp = fR.LoadFile(file_);
+	Vec3 tempPos = Vec3(0, 0, 0);
+
+	for (Model* model : temp) 
+	{
+		if (model->getFileName() == "Jellyfish.obj") 
+		{ 
+			enems.push_back(model); 
+			model->setVel(Vec3(0, 0, 3.0f)); 
+			model->setScale(Vec3(1, 1, 1));
+		}
+		tempPos = model->getPosition();
+		model->setPos(Vec3(tempPos.x, 15.0f, tempPos.z));
+	}
 
 	gameStart = true;
 
