@@ -20,7 +20,7 @@ bool GameScene::OnCreate()
 	gameStart = false;
 	gameWin = false;
 	gameLoss = false;
-	eye = Vec3(0.0f, 0.0f, 90.0f);
+	eye = Vec3(0.0f, 0.0f, 90.0f); //90
 	at = Vec3(0.0f, 0.0f, -1.0f);
 	up = Vec3(0.0f, 1.0f, 0.0f);
 	camera = nullptr;
@@ -28,6 +28,7 @@ bool GameScene::OnCreate()
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
 
 	shotDelay = 0.0f;
+	makePlane();
 
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
 	return true;
@@ -51,11 +52,11 @@ bool GAME::GameScene::addMiss(Vec3 pos, Vec3 vel)
 	return true;
 }
 
-bool GAME::GameScene::winLose(const char *name_) 
+bool GAME::GameScene::makePlane() 
 {
-	wl.push_back(new Model(Vec3((eye.x) + 10, 20, eye.z - 10), Vec3(0, 0, 0), Vec3(0, 0, 0)));
+	wl.push_back(new Model(Vec3(6.0f, 28.0f, 0), Vec3(0, 0, 0), Vec3(0, 0, 0)));
 	wl[0]->OnCreate();
-	if (wl[0]->LoadMesh(name_) == false) { return false; }
+	if (wl[0]->LoadMesh("Plane1.obj") == false) { return false; }
 }
 
 void GameScene::OnResize(int w_, int h_) 
@@ -92,7 +93,7 @@ void GameScene::Update(const float deltaTime)
 		for (Model* enem : enems)
 		{
 			enem->Update(deltaTime);
-			if (enem->getPosition().z >= 90)
+			if (enem->getPosition().z >= 70)
 			{
 				if(!gameLoss)
 				{
