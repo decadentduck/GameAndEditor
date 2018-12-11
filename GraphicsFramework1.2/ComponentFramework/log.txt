@@ -1,2 +1,2 @@
-INFO: Initializing the window and first scene ( c:\users\laptop\documents\github\gameandeditor\graphicsframework1.2\componentframework\gamescenemanager.cpp: 133)
-INFO: 1.13.0 ( c:\users\laptop\documents\github\gameandeditor\graphicsframework1.2\componentframework\window.cpp: 66)
+INFO: Initializing the window and first scene ( d:\visualstudiosprojects\gameandeditor\graphicsframework1.2\componentframework\gamescenemanager.cpp: 133)
+INFO: 1.13.0 ( d:\visualstudiosprojects\gameandeditor\graphicsframework1.2\componentframework\window.cpp: 66)

@@ -13,11 +13,11 @@ namespace GAME
 	class EditorScene : public Scene 
 	{
 	protected:
-		bool addModel(char file[], const Vec3 pos, const float rot);
+		bool addModel(string file_, const Vec3 pos, const float rot);
 		
 	public:
 		explicit EditorScene(Window& windowRef);
-		virtual ~EditorScene();
+		virtual ~EditorScene();;
 
 		/// Delete these possible default constructors and operators  
 		EditorScene(const EditorScene&) = delete;
@@ -40,6 +40,7 @@ namespace GAME
 		//redo list
 		Vec3 eye, at, up;
 		Camera* camera;
+		void AddGameObject(int objectIndex);
 	};
 }
 #endif

@@ -34,7 +34,7 @@ bool EditorScene::OnCreate()
 	defaultModels = f.LoadFile("ObjectsDefault.xml");
 
 	//create list of scene objects
-	gameModels = f.LoadFile("WorldDefault.xml");
+	gameModels = f.LoadFile("SaveFile.xml");
 
 	/// Create a shader with attributes
 	SceneEnvironment::getInstance()->setLight(Vec3(0.0f, 3.0f, 7.0f));
@@ -43,13 +43,16 @@ bool EditorScene::OnCreate()
 	return true;
 }
 
-bool EditorScene::addModel(char file[], const Vec3 pos, const float rot)
+bool EditorScene::addModel(string file_, const Vec3 pos, const float rot)
 {
 
-	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f), file));
+	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f), file_.c_str()));
 	gameModels[gameModels.size() - 1]->OnCreate();
 
-	if (gameModels[gameModels.size() - 1]->LoadMesh(file) == false) { return false; }
+	if (gameModels[gameModels.size() - 1]->LoadMesh(file_.c_str()) == false)
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -84,6 +87,7 @@ void EditorScene::Render() const
 void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 {
 	FileReader FR = FileReader();
+	
 	if (SDLEvent.type == SDL_KEYDOWN)
 	{
 		switch (SDLEvent.key.keysym.sym)
@@ -92,13 +96,26 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 			FR.SaveFile("SaveFile.xml", gameModels);
 			break;
 		case SDLK_1:
-			//create tree one
+			//create object
+			AddGameObject(0);
 			break;
 		case SDLK_2:
-			//create tree one
+			//create object
+			AddGameObject(1);
 			break;
 		case SDLK_3:
-			//create tree one
+			//create object
+			AddGameObject(2);
+			break;
+		case SDLK_z:
+			//object selection
+			selectedObjectIndex--;
+			if (selectedObjectIndex < 0) selectedObjectIndex = gameModels.size() - 1;
+			break;
+		case SDLK_x:
+			//object selection
+			selectedObjectIndex++;
+			if (selectedObjectIndex == gameModels.size()) selectedObjectIndex = 0;
 			break;
 		case SDLK_w:
 			//camera moverment;
@@ -120,31 +137,21 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 			eye = MMath::translate(-1.0f, 0.0f, 0.0f) * eye;
 			at = MMath::translate(-1.0f, 0.0f, 0.0f) * at;
 			break;
-		case SDLK_z:
-			//object selection
-			selectedObjectIndex--;
-			if (selectedObjectIndex < 0) selectedObjectIndex = gameModels.size() - 1;
-			break;
-		case SDLK_x:
-			//object selection
-			selectedObjectIndex++;
-			if (selectedObjectIndex == gameModels.size()) selectedObjectIndex = 0;
-			break;
 		case SDLK_LEFT:
 			//move object
-			gameModels[selectedObjectIndex]->setPos( MMath::translate( Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[selectedObjectIndex]->setPos( MMath::translate( Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		case SDLK_RIGHT:
 			//move object
-			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		case SDLK_UP:
 			//move object
-			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		case SDLK_DOWN:
 			//move object
-			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
 			break;
 		default:
 			break;
@@ -163,4 +170,10 @@ void EditorScene::OnDestroy() {
 	if (camera) delete camera;
 	for (Model* model : defaultModels) { if (model) delete model; }
 	for (Model* model : gameModels) { if (model) delete model; }
+}
+
+void EditorScene::AddGameObject(int objectIndex)
+{//defaultModels[objectIndex]
+	addModel(defaultModels[objectIndex]->name.c_str(), at, 0);
+	selectedObjectIndex = gameModels.size() - 1;
 }
