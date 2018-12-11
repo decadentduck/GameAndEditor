@@ -141,7 +141,7 @@ void GameScene::HandleEvents(const SDL_Event& SDLEvent)
 				StartBasic();
 				break;
 			case SDLK_2:
-				StartFile("WorldDefault.xml");
+				StartFile("SaveFile.xml");
 				break;
 				}
 				else if (!gameWin && !gameLoss && gameStart)
