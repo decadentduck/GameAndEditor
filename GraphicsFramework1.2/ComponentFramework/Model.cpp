@@ -59,6 +59,18 @@ namespace GAME
 	{
 		Entity::setPos(pos_);
 		updateModelMatrix();
+
+		pos = pos_;
+	}
+
+	void Model::setVel(const Vec3 vel_) 
+	{
+		velocity = vel_;
+	}
+
+	void Model::setScale(const Vec3 scale_) 
+	{
+		scale = scale_;
 	}
 
 	void Model::setOrientation(const Vec3& orientation_) 
@@ -146,5 +158,10 @@ namespace GAME
 	Vec3 Model::getPosition() 
 	{
 		return pos;
+	}
+
+	std::string Model::getFileName() 
+	{
+		return name;
 	}
 }
