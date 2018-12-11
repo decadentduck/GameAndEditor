@@ -51,6 +51,13 @@ bool GAME::GameScene::addMiss(Vec3 pos, Vec3 vel)
 	return true;
 }
 
+bool GAME::GameScene::winLose(const char *name_) 
+{
+	wl.push_back(new Model(Vec3((eye.x) + 10, 20, eye.z - 10), Vec3(0, 0, 0), Vec3(0, 0, 0)));
+	wl[0]->OnCreate();
+	if (wl[0]->LoadMesh(name_) == false) { return false; }
+}
+
 void GameScene::OnResize(int w_, int h_) 
 {
 	windowPtr->setWindowSize(w_, h_);
@@ -87,8 +94,11 @@ void GameScene::Update(const float deltaTime)
 			enem->Update(deltaTime);
 			if (enem->getPosition().z >= 90)
 			{
-				gameLoss = true;
-				printf("lose\n");
+				if(!gameLoss)
+				{
+					gameLoss = true;
+					printf("lose\n");
+				}
 			}
 		}
 
@@ -96,8 +106,11 @@ void GameScene::Update(const float deltaTime)
 
 		if (enems.size() <= 0)
 		{
-			gameWin = true;
-			printf("win\n");
+			if (!gameWin) 
+			{
+				gameWin = true;
+				printf("win\n");
+			}
 		}
 	}
 }
@@ -209,4 +222,6 @@ bool GameScene::StartFile(char *file_)
 	fR.LoadFile(file_);
 
 	gameStart = true;
+
+	return true;
 }

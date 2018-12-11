@@ -16,7 +16,7 @@ namespace GAME
 
 		bool addEnem(Vec3 pos, Vec3 vel);
 		bool addMiss(Vec3 pos, Vec3 vel);
-
+		bool winLose(const char *name_);
 
 	public:
 		explicit GameScene(Window& windowRef);
@@ -40,7 +40,7 @@ namespace GAME
 		virtual void StartBasic();
 
 	private:
-		std::vector<Model*> enems, miss;
+		std::vector<Model*> enems, miss, wl;
 		Vec3 eye, at, up;
 		Camera* camera;
 		float shotDelay;
