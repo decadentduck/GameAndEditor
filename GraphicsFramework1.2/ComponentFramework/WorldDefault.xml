@@ -1,26 +1,20 @@
 <Objects>
 	<object name="Tree1.obj">
 		<pos X="1" Y="1" Z="1"></pos>
-		<rot value="90"></rot>
 	</object>
 	<object name="Tree1.obj">
 		<pos X = "60" Y = "0" Z = "-20"></pos>
-		<rot value="45"></rot>
 	</object>
 	<object name="Tree1.obj">
 		<pos X = "-50" Y = "0" Z = "0"></pos>
-		<rot value = "-90"></rot>
 	</object>
 	<object name="Tree2.obj">
 		<pos X = "70" Y = "0" Z = "-50"></pos>
-		<rot value = "0"></rot>
 	</object>
 	<object name="Tree2.obj">
 		<pos X = "-30" Y = "0" Z = "5"></pos>
-		<rot value = "145"></rot>
 	</object>
-	<object name="Tree2.obj">
+	<object name="Jellyfish.obj">
 		<pos X = "-70" Y = "0" Z = "-20"></pos>
-		<rot value = "70"></rot>
 	</object>
 </Objects>

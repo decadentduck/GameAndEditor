@@ -7,7 +7,6 @@
 
 namespace GAME 
 {
-
 	Model::Model(const Vec3 pos_, const Vec3 orientation_, Vec3 velocity_)
 	{
 		pos = pos_;
@@ -26,6 +25,29 @@ namespace GAME
 		scale = scale_;
 		velocity = velocity_;
 		shader = nullptr;
+		fileName = nullptr;
+	}
+
+	Model::Model(const Vec3 pos_, const Vec3 orientation_, const float rotation_, const Vec3 scale_, Vec3 velocity_, char file_[])
+	{
+		pos = pos_;
+		orientation = orientation_;
+		rotation = rotation_;
+		scale = scale_;
+		velocity = velocity_;
+		shader = nullptr;
+		strcpy_s(fileName, strlen(file_), file_);
+	}
+
+	Model::Model(const Vec3 pos_, const Vec3 orientation_, const float rotation_, const Vec3 scale_, Vec3 velocity_, std::string file_)
+	{
+		pos = pos_;
+		orientation = orientation_;
+		rotation = rotation_;
+		scale = scale_;
+		velocity = velocity_;
+		shader = nullptr;
+		name = file_;
 	}
 
 	Model::~Model() 

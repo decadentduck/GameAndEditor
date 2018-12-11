@@ -13,7 +13,7 @@ namespace GAME
 	class EditorScene : public Scene 
 	{
 	protected:
-		bool addModel(const char file[], const Vec3 pos, const float rot);
+		bool addModel(char file[], const Vec3 pos, const float rot);
 		
 	public:
 		explicit EditorScene(Window& windowRef);

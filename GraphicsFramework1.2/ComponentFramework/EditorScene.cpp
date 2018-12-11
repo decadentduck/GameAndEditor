@@ -43,10 +43,10 @@ bool EditorScene::OnCreate()
 	return true;
 }
 
-bool EditorScene::addModel(const char file[], const Vec3 pos, const float rot)
+bool EditorScene::addModel(char file[], const Vec3 pos, const float rot)
 {
 
-	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f)));
+	gameModels.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f), file));
 	gameModels[gameModels.size() - 1]->OnCreate();
 
 	if (gameModels[gameModels.size() - 1]->LoadMesh(file) == false) { return false; }
