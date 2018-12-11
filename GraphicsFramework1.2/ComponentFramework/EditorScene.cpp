@@ -15,14 +15,11 @@ using namespace GAME;
 using namespace MATH;
 
 
-EditorScene::EditorScene(Window& windowRef):Scene(windowRef) 
-{
-
-}
+EditorScene::EditorScene(Window& windowRef):Scene(windowRef) { }
 
 bool EditorScene::OnCreate() 
 {
-	eye = Vec3(0.0f, -30.0f, 10.0f);
+	eye = Vec3(0.0f, -20.0f, 10.0f);
 	at = Vec3(0.0f, 0.0f, -1.0f);
 	up = Vec3(0.0f, 1.0f, 0.0f);
 	camera = nullptr;
@@ -173,7 +170,7 @@ void EditorScene::OnDestroy() {
 }
 
 void EditorScene::AddGameObject(int objectIndex)
-{//defaultModels[objectIndex]
+{
 	addModel(defaultModels[objectIndex]->name.c_str(), at, 0);
 	selectedObjectIndex = gameModels.size() - 1;
 }

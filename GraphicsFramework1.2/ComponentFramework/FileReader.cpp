@@ -112,10 +112,10 @@ bool FileReader::addModel(string file_, const Vec3 pos, const float rot)
 	models.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f), file_.c_str()));
 	models[models.size() - 1]->OnCreate();
 	
-		if (models[models.size() - 1]->LoadMesh(file_.c_str()) == false)
-		{
-			return false;
-		}
+	if (models[models.size() - 1]->LoadMesh(file_.c_str()) == false)
+	{
+		return false;
+	}
 
 	return true;
 }
