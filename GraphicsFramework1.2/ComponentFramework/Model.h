@@ -23,6 +23,8 @@ namespace GAME {
 	public:
 		Model(const Vec3 _pos, const Vec3 _orientation, Vec3 _velocity);
 		Model(const Vec3 _pos, const Vec3 _orientation, const float rotation_, const Vec3 scale_, Vec3 _velocity);
+		Model(const Vec3 _pos, const Vec3 _orientation, const float rotation_, const Vec3 scale_, Vec3 _velocity, char file_[]);
+		Model(const Vec3 _pos, const Vec3 _orientation, const float rotation_, const Vec3 scale_, Vec3 _velocity, std::string file_);
 		Model(const Model&) = delete;
 		Model(Model&&) = delete;
 		Model& operator = (const Model&) = delete;
@@ -33,6 +35,8 @@ namespace GAME {
 		void setPos(const Vec3& pos_) override;
 		Vec3 getPosition();
 		void setOrientation(const Vec3& orienration_) override;
+		char *fileName;
+		std::string name;
 
 		virtual bool OnCreate();
 		virtual void OnDestroy();

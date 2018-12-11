@@ -59,7 +59,7 @@ std::vector<Model*> FileReader::LoadFile(char file[])
 				}
 			}
 
-			//instantiate the object here
+
 			if (!addModel(name, pos, rot)) return models;
 			//empty temp values
 			name = "";
@@ -84,24 +84,15 @@ void FileReader::SaveFile(char file[], std::vector<Model*> models_)
 	if (result)
 	{
 		pugi::xml_node parent = doc.child("Objects");
-
 		doc.remove_child(parent);
-		//for (pugi::xml_node child : parent.children())
-		//{
-		//	parent.remove_child(child);
-		//	printf("child removed ");
-		//}
-	/*	for (pugi::xml_node child = parent.first_child(); child; child = child.next_sibling())
-		{
-			parent.remove_child(child);
-			printf("child removed ");
-		}*/
+
 		parent = doc.append_child("Objects");
 		for (Model *m : models_)
 		{
 			//add node with some name
 			pugi::xml_node node = parent.append_child("object");
-			//node.set_name(m->name);
+			//node.set_name(m->name.c_str());
+			node.append_attribute("name").set_value(m->name.c_str());
 
 			// add description node with text child
 			pugi::xml_node pos = node.append_child("pos");
@@ -115,25 +106,16 @@ void FileReader::SaveFile(char file[], std::vector<Model*> models_)
 	}
 }
 
-bool FileReader::addModel(const string tree, const Vec3 pos, const float rot)
+bool FileReader::addModel(string file_, const Vec3 pos, const float rot)
 {
 
-	models.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f)));
+	models.push_back(new Model(pos, Vec3(0.0f, 0.0f, 0.0f), rot, Vec3(0.05f, 0.05f, 0.05f), Vec3(0.0f, 0.0f, 0.0f), file_.c_str()));
 	models[models.size() - 1]->OnCreate();
-	if (tree == "Tree1")
-	{
-		if (models[models.size() - 1]->LoadMesh("Tree1.obj") == false)
+	
+		if (models[models.size() - 1]->LoadMesh(file_.c_str()) == false)
 		{
 			return false;
 		}
-	}
-	else
-	{
-		if (models[models.size() - 1]->LoadMesh("Tree2.obj") == false)
-		{
-			return false;
-		}
-	}
 
 	return true;
 }
