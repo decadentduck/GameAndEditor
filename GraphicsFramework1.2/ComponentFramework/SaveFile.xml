@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <Objects>
 	<object name="Tree1.obj">
-		<pos X="1" Y="1" Z="51" />
+		<pos X="3" Y="1" Z="51" />
 	</object>
 	<object name="Tree1.obj">
-		<pos X="102" Y="0" Z="-20" />
+		<pos X="106" Y="0" Z="-20" />
 	</object>
 	<object name="Tree1.obj">
-		<pos X="-78" Y="0" Z="0" />
+		<pos X="-75" Y="0" Z="0" />
 	</object>
 	<object name="Tree2.obj">
-		<pos X="65" Y="0" Z="12" />
+		<pos X="67" Y="0" Z="12" />
 	</object>
 	<object name="Tree2.obj">
-		<pos X="-1" Y="0" Z="-7" />
+		<pos X="2" Y="0" Z="-7" />
 	</object>
 	<object name="Jellyfish.obj">
-		<pos X="-41" Y="0" Z="-24" />
+		<pos X="-38" Y="0" Z="-24" />
 	</object>
 	<object name="Jellyfish.obj">
-		<pos X="-101" Y="0" Z="-1" />
+		<pos X="119" Y="0" Z="-1" />
 	</object>
 	<object name="Tree2.obj">
 		<pos X="-8" Y="0" Z="-58" />

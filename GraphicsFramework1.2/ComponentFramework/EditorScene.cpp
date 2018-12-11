@@ -92,6 +92,9 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 		case SDLK_e:
 			FR.SaveFile("SaveFile.xml", gameModels);
 			break;
+		case SDLK_u:
+			Undo();
+			break;
 		case SDLK_1:
 			//create object
 			AddGameObject(0);
@@ -136,19 +139,23 @@ void EditorScene::HandleEvents(const SDL_Event& SDLEvent)
 			break;
 		case SDLK_LEFT:
 			//move object
-			gameModels[selectedObjectIndex]->setPos( MMath::translate( Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			gameModels[selectedObjectIndex]->setPos( MMath::translate( Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition()); 
+			actionList.push_back(std::make_pair(selectedObjectIndex, std::string("moveleft")));
 			break;
 		case SDLK_RIGHT:
 			//move object
 			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.push_back(std::make_pair(selectedObjectIndex, std::string("moveright")));
 			break;
 		case SDLK_UP:
 			//move object
 			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.push_back(std::make_pair(selectedObjectIndex, std::string("moveup")));
 			break;
 		case SDLK_DOWN:
 			//move object
 			gameModels[selectedObjectIndex]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.push_back(std::make_pair(selectedObjectIndex, std::string("movedown")));
 			break;
 		default:
 			break;
@@ -173,4 +180,38 @@ void EditorScene::AddGameObject(int objectIndex)
 {
 	addModel(defaultModels[objectIndex]->name.c_str(), at, 0);
 	selectedObjectIndex = gameModels.size() - 1;
+
+	actionList.push_back(std::make_pair(selectedObjectIndex, std::string("create")));
+}
+
+void EditorScene::Undo()
+{
+	std::pair<int, std::string> lastAction;
+	lastAction.first = actionList[actionList.size() - 1].first;
+	lastAction.second = actionList[actionList.size() - 1].second;
+
+	if (lastAction.second == "create")
+	{
+		//gameModels.erase(gameModels.end());
+	}
+	else if (lastAction.second == "moveleft")
+	{
+		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+		actionList.pop_back();
+	}
+	else if (lastAction.second == "moveright")
+	{
+		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+		actionList.pop_back();
+	}
+	else if (lastAction.second == "movedown")
+	{
+		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
+		actionList.pop_back();
+	}
+	else if (lastAction.second == "moveup")
+	{
+		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
+		actionList.pop_back();
+	}
 }

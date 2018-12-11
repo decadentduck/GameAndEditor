@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Model.h"
 #include "Camera.h"
+#include <map>
 
 using namespace std;
 
@@ -36,11 +37,11 @@ namespace GAME
 		std::vector<Model*> defaultModels;
 		std::vector<Model*> gameModels;
 		int selectedObjectIndex;
-		//undo list
-		//redo list
 		Vec3 eye, at, up;
 		Camera* camera;
 		void AddGameObject(int objectIndex);
+		std::vector<std::pair<int, std::string>> actionList;
+		void Undo();
 	};
 }
 #endif
