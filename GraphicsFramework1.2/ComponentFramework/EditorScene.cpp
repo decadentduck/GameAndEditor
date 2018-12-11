@@ -186,32 +186,32 @@ void EditorScene::AddGameObject(int objectIndex)
 
 void EditorScene::Undo()
 {
-	std::pair<int, std::string> lastAction;
-	lastAction.first = actionList[actionList.size() - 1].first;
-	lastAction.second = actionList[actionList.size() - 1].second;
-
-	if (lastAction.second == "create")
+	if (actionList.size() > 1)
 	{
-		//gameModels.erase(gameModels.end());
-	}
-	else if (lastAction.second == "moveleft")
-	{
-		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
-		actionList.pop_back();
-	}
-	else if (lastAction.second == "moveright")
-	{
-		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
-		actionList.pop_back();
-	}
-	else if (lastAction.second == "movedown")
-	{
-		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
-		actionList.pop_back();
-	}
-	else if (lastAction.second == "moveup")
-	{
-		gameModels[lastAction.first]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
-		actionList.pop_back();
+		if (actionList[actionList.size() - 1].second == "create")
+		{
+			gameModels.pop_back();
+			actionList.pop_back();
+		}
+		else if (actionList[actionList.size() - 1].second == "moveleft")
+		{
+			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.pop_back();
+		}
+		else if (actionList[actionList.size() - 1].second == "moveright")
+		{
+			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(-1, 0, 0)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.pop_back();
+		}
+		else if (actionList[actionList.size() - 1].second == "movedown")
+		{
+			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(0, 0, -1)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.pop_back();
+		}
+		else if (actionList[actionList.size() - 1].second == "moveup")
+		{
+			gameModels[actionList[actionList.size() - 1].first]->setPos(MMath::translate(Vec3(0, 0, 1)) * gameModels[selectedObjectIndex]->getPosition());
+			actionList.pop_back();
+		}
 	}
 }
