@@ -78,7 +78,7 @@ void GameScene::Update(const float deltaTime)
 		{
 			model->Update(deltaTime);
 
-			if (model->getPosition().z < -10) { miss.erase(miss.begin() + i); printf("destroyed\n"); }
+			if (model->getPosition().z < -50) { miss.erase(miss.begin() + i); printf("destroyed\n"); }
 
 			for (Model* enem : enems)
 			{
@@ -213,16 +213,26 @@ void GameScene::Fire()
 
 void GameScene::StartBasic() 
 {
+	miss.clear();
+	enems.clear();
+	trees.clear();
+
 	addEnem(Vec3(0.0f, 15.0f, -20.0f), Vec3(0.0f, 0.0f, 3.0f));
 	addEnem(Vec3(60.0f, 15.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
 	addEnem(Vec3(-30.0f, 15.0f, -40.0f), Vec3(0.0f, 0.0f, 3.0f));
 	addEnem(Vec3(-50.0f, 15.0f, 0.0f), Vec3(0.0f, 0.0f, 3.0f));
 
 	gameStart = true;
+	gameLoss = false;
+	gameWin = false;
 }
 
 bool GameScene::StartFile(char *file_) 
 {
+	miss.clear();
+	enems.clear();
+	trees.clear();
+
 	FileReader fR = FileReader();
 
 	temp = fR.LoadFile(file_);
@@ -247,6 +257,8 @@ bool GameScene::StartFile(char *file_)
 	}
 
 	gameStart = true;
+	gameLoss = false;
+	gameWin = false;
 
 	return true;
 }
