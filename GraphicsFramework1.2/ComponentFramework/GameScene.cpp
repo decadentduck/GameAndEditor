@@ -30,6 +30,9 @@ bool GameScene::OnCreate()
 	shotDelay = 0.0f;
 
 	OnResize(windowPtr->getWidth(), windowPtr->getHeight());
+
+	printf(" Press 1 to load basic scene\n Press 2 to load from XML \n Left and right arrows to move\n space to fire\n");
+
 	return true;
 }
 
